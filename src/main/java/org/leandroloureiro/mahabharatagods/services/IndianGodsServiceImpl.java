@@ -30,9 +30,7 @@ public class IndianGodsServiceImpl implements IndianGodsService {
     private final Executor apiCallExecutor;
     private final String indianGodsServiceHostname;
 
-    public IndianGodsServiceImpl(final RestTemplate client,
-                                 final Executor apiCallExecutor,
-                                 final String indianGodsServiceHostname) {
+    public IndianGodsServiceImpl(RestTemplate client, Executor apiCallExecutor, String indianGodsServiceHostname) {
         this.client = client;
         this.apiCallExecutor = apiCallExecutor;
         this.indianGodsServiceHostname = indianGodsServiceHostname;
@@ -46,14 +44,14 @@ public class IndianGodsServiceImpl implements IndianGodsService {
 
         return CompletableFuture.supplyAsync(() -> {
 
-            final ParameterizedTypeReference<List<String>> type = new ParameterizedTypeReference<>() {
+            ParameterizedTypeReference<List<String>> type = new ParameterizedTypeReference<>() {
             };
 
-            final var either = getURI(indianGodsServiceHostname);
+            var either = getURI(indianGodsServiceHostname);
 
             LOG.info("Fetching gods...");
 
-            final List<String> gods;
+            List<String> gods;
             if (either.isRight()) {
                 gods = client.exchange(
                         either.get(),
@@ -82,15 +80,15 @@ public class IndianGodsServiceImpl implements IndianGodsService {
         });
     }
 
-    private static Either<String, URI> getURI(final String address) {
+    private static Either<String, URI> getURI(String address) {
 
         try {
 
-            final var baseUrl = "http://" + address + "/jabrena/latency-problems/indian";
+            var baseUrl = "http://" + address + "/jabrena/latency-problems/indian";
 
             return Either.right(new URI(baseUrl));
 
-        } catch (final URISyntaxException e) {
+        } catch (URISyntaxException e) {
 
             LOG.error("Failed to create resource URL", e);
 

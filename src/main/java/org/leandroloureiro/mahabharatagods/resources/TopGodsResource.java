@@ -20,16 +20,16 @@ public class TopGodsResource {
     private final TopMahabharataGods topMahabharataGods;
 
     @Autowired
-    public TopGodsResource(final TopMahabharataGods topMahabharataGods) {
+    public TopGodsResource(TopMahabharataGods topMahabharataGods) {
         this.topMahabharataGods = topMahabharataGods;
     }
 
-    @RequestMapping(value = "/top-gods", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/top-gods", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<God>> topGods() {
 
         LOG.info("Requesting top gods presented in Mahabharata.");
 
-        final var gods = topMahabharataGods.getTopMahabharataGods();
+        var gods = topMahabharataGods.getTopMahabharataGods();
 
         return ResponseEntity.ok().body(gods);
 

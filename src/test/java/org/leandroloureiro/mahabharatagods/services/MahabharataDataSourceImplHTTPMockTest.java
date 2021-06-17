@@ -25,7 +25,7 @@ class MahabharataDataSourceImplHTTPMockTest {
         wireMockServer = new WireMockServer(8090);
         wireMockServer.start();
 
-        final var executor = Executors.newSingleThreadExecutor();
+        var executor = Executors.newSingleThreadExecutor();
 
         service = new MahabharataDataSourceImpl(new RestTemplate(), executor, "localhost:8090");
 
@@ -45,9 +45,9 @@ class MahabharataDataSourceImplHTTPMockTest {
                         .withBodyFile("MahabharataOfVyasa-EnglishTranslationByKMGanguli_djvu.txt")));
 
 
-        final var godList = service.getMahabharataBook();
+        var godList = service.getMahabharataBook();
 
-        final String result = godList.join();
+        String result = godList.join();
 
         then(result).startsWith("Mahabharata");
 

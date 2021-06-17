@@ -26,7 +26,7 @@ class IndianGodsServiceImplHTTPMockTest {
         wireMockServer = new WireMockServer(8090);
         wireMockServer.start();
 
-        final var executor = Executors.newSingleThreadExecutor();
+        var executor = Executors.newSingleThreadExecutor();
 
         service = new IndianGodsServiceImpl(new RestTemplate(), executor, "localhost:8090");
 
@@ -46,9 +46,9 @@ class IndianGodsServiceImplHTTPMockTest {
                         .withBodyFile("indian.json")));
 
 
-        final var godList = service.getGodList();
+        var godList = service.getGodList();
 
-        final var result = godList.join();
+        var result = godList.join();
 
         then(result.isPresent()).isTrue();
 

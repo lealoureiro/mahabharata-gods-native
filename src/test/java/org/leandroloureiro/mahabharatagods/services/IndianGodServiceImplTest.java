@@ -29,7 +29,7 @@ class IndianGodServiceImplTest {
 
         restTemplate = mock(RestTemplate.class);
 
-        final var executor = Executors.newSingleThreadExecutor();
+        var executor = Executors.newSingleThreadExecutor();
 
         service = new IndianGodServiceImpl(restTemplate, executor, "localhost:8080");
 
@@ -42,9 +42,9 @@ class IndianGodServiceImplTest {
 
         when(restTemplate.getForObject(uri, String.class)).thenReturn("");
 
-        final var result = service.isValidIndianGod("God1");
+        var result = service.isValidIndianGod("God1");
 
-        final var valid = result.join();
+        var valid = result.join();
 
         then(valid).isTrue();
 
@@ -57,9 +57,9 @@ class IndianGodServiceImplTest {
 
         doThrow(new RestClientException("404 - Not found!")).when(restTemplate).getForObject(uri, String.class);
 
-        final var result = service.isValidIndianGod("God1");
+        var result = service.isValidIndianGod("God1");
 
-        final var valid = result.join();
+        var valid = result.join();
 
         then(valid).isFalse();
 

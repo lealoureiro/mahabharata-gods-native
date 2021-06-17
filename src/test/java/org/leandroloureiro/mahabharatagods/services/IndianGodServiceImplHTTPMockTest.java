@@ -26,7 +26,7 @@ class IndianGodServiceImplHTTPMockTest {
         wireMockServer = new WireMockServer(8090);
         wireMockServer.start();
 
-        final Executor executor = Executors.newSingleThreadExecutor();
+        Executor executor = Executors.newSingleThreadExecutor();
 
         service = new IndianGodServiceImpl(new RestTemplate(), executor, "localhost:8090");
 
@@ -45,9 +45,9 @@ class IndianGodServiceImplHTTPMockTest {
                 .willReturn(aResponse().withHeader("text/html", "application/json")
                         .withStatus(200)));
 
-        final var result = service.isValidIndianGod("Brahma");
+        var result = service.isValidIndianGod("Brahma");
 
-        final var valid = result.join();
+        var valid = result.join();
 
         then(valid).isTrue();
 
@@ -60,9 +60,9 @@ class IndianGodServiceImplHTTPMockTest {
                 .willReturn(aResponse().withHeader("text/html", "application/json")
                         .withStatus(404)));
 
-        final var result = service.isValidIndianGod("Jesus");
+        var result = service.isValidIndianGod("Jesus");
 
-        final var valid = result.join();
+        var valid = result.join();
 
         then(valid).isFalse();
 

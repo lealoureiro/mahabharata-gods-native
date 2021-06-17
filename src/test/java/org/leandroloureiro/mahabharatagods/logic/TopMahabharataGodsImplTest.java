@@ -76,7 +76,7 @@ class TopMahabharataGodsImplTest {
 
         then(component).isNotNull();
 
-        final var gods = component.getTopMahabharataGods();
+        var gods = component.getTopMahabharataGods();
 
         then(gods).isNotNull();
         then(gods.size()).isEqualTo(3);

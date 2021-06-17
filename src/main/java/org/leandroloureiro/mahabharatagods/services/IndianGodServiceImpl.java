@@ -26,9 +26,7 @@ public class IndianGodServiceImpl implements IndianGodService {
     private final Executor apiCallExecutor;
     private final String indianGodServiceHostname;
 
-    IndianGodServiceImpl(final RestTemplate restTemplate,
-                         final Executor apiCallExecutor,
-                         final String indianGodServiceHostname) {
+    IndianGodServiceImpl(RestTemplate restTemplate, Executor apiCallExecutor, String indianGodServiceHostname) {
         this.restTemplate = restTemplate;
         this.apiCallExecutor = apiCallExecutor;
         this.indianGodServiceHostname = indianGodServiceHostname;
@@ -38,12 +36,12 @@ public class IndianGodServiceImpl implements IndianGodService {
      * {@inheritDoc}
      */
     @Override
-    public CompletableFuture<Boolean> isValidIndianGod(final String indianGod) {
+    public CompletableFuture<Boolean> isValidIndianGod(String indianGod) {
         return CompletableFuture.supplyAsync(() -> {
 
             LOG.info("Checking the validity of God {}.", indianGod);
 
-            final var uri = getURI(indianGodServiceHostname, indianGod);
+            var uri = getURI(indianGodServiceHostname, indianGod);
 
             if (uri.isRight()) {
 
@@ -60,15 +58,15 @@ public class IndianGodServiceImpl implements IndianGodService {
         }, apiCallExecutor).handle((__, e) -> Objects.isNull(e));
     }
 
-    private static Either<String, URI> getURI(final String address, final String indianGod) {
+    private static Either<String, URI> getURI(String address, String indianGod) {
 
         try {
 
-            final var baseUrl = "http://" + address + "/wiki/" + URLEncoder.encode(indianGod, StandardCharsets.UTF_8);
+            var baseUrl = "http://" + address + "/wiki/" + URLEncoder.encode(indianGod, StandardCharsets.UTF_8);
 
             return Either.right(new URI(baseUrl));
 
-        } catch (final URISyntaxException e) {
+        } catch (URISyntaxException e) {
 
             LOG.error("Failed to create resource URL", e);
 

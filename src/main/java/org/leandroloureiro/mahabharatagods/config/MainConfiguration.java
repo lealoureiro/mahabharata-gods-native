@@ -11,22 +11,22 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 @Configuration
-@PropertySource(value = { "classpath:application.properties" })
+@PropertySource(value = {"classpath:application.properties"})
 public class MainConfiguration {
 
 
     @Bean
-    public String indianGodsServiceHostname(@Value("${indiangods.service.hostname}") final String indianGodsServiceHostname) {
+    public String indianGodsServiceHostname(@Value("${indiangods.service.hostname}") String indianGodsServiceHostname) {
         return indianGodsServiceHostname;
     }
 
     @Bean
-    public String indianGodServiceHostname(@Value("${indiangod.service.hostname}") final String indianGodServiceHostname) {
+    public String indianGodServiceHostname(@Value("${indiangod.service.hostname}") String indianGodServiceHostname) {
         return indianGodServiceHostname;
     }
 
     @Bean
-    public String mahabharataDataSourceHostname(@Value("${mahabharata.service.hostname}") final String mahabharataDataSourceHostname) {
+    public String mahabharataDataSourceHostname(@Value("${mahabharata.service.hostname}") String mahabharataDataSourceHostname) {
         return mahabharataDataSourceHostname;
     }
 
@@ -38,11 +38,12 @@ public class MainConfiguration {
     @Bean
     public Executor apiCallExecutor() {
 
-        final var factory = new ThreadFactoryBuilder()
+        var factory = new ThreadFactoryBuilder()
                 .setNameFormat("API Worker %d")
                 .build();
 
         return Executors.newFixedThreadPool(10, factory);
+
     }
 
 

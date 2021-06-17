@@ -29,7 +29,7 @@ class MahabharataDataSourceImplTest {
 
         restTemplate = mock(RestTemplate.class);
 
-        final var executor = Executors.newSingleThreadExecutor();
+        var executor = Executors.newSingleThreadExecutor();
 
         service = new MahabharataDataSourceImpl(restTemplate, executor, "localhost:8080");
 
@@ -38,13 +38,13 @@ class MahabharataDataSourceImplTest {
     @Test
     void testGetMahabharataBook() throws Exception {
 
-        final var uri = new URI("http://localhost:8080/stream/TheMahabharataOfKrishna-dwaipayanaVyasa/MahabharataOfVyasa-EnglishTranslationByKMGanguli_djvu.txt");
+        var uri = new URI("http://localhost:8080/stream/TheMahabharataOfKrishna-dwaipayanaVyasa/MahabharataOfVyasa-EnglishTranslationByKMGanguli_djvu.txt");
 
         when(restTemplate.getForObject(uri, String.class)).thenReturn("SomeBookContent");
 
-        final var book = service.getMahabharataBook();
+        var book = service.getMahabharataBook();
 
-        final var bookContent = book.join();
+        var bookContent = book.join();
 
         then(bookContent).isEqualTo("SomeBookContent");
 

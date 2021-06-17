@@ -9,6 +9,12 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface IndianGodsService {
 
+    /**
+     *
+     * Get a list of Indian gods.
+     *
+     * @return a list with Indian gods.
+     */
     CompletableFuture<Optional<List<String>>> getGodList();
 
 }

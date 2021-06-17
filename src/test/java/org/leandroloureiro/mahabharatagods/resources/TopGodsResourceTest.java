@@ -30,11 +30,11 @@ class TopGodsResourceTest {
     @Test
     void testTopMahabharataGods() {
 
-        final List<God> gods = Collections.singletonList(new God("SomeGod", 10));
+        List<God> gods = Collections.singletonList(new God("SomeGod", 10));
 
         when(topMahabharataGods.getTopMahabharataGods()).thenReturn(gods);
 
-        final ResponseEntity<List<God>> result = resource.topGods();
+        ResponseEntity<List<God>> result = resource.topGods();
 
         assertEquals(HttpStatus.OK, result.getStatusCode());
         assertEquals(gods, result.getBody());

@@ -30,9 +30,9 @@ public class TopMahabharataGodsImpl implements TopMahabharataGods {
     private final IndianGodService indianGodService;
     private final MahabharataDataSource mahabharataDataSource;
 
-    public TopMahabharataGodsImpl(final IndianGodsService indianGodsService,
-                                  final IndianGodService indianGodService,
-                                  final MahabharataDataSource mahabharataDataSource) {
+    public TopMahabharataGodsImpl(IndianGodsService indianGodsService,
+                                  IndianGodService indianGodService,
+                                  MahabharataDataSource mahabharataDataSource) {
         this.indianGodsService = indianGodsService;
         this.indianGodService = indianGodService;
         this.mahabharataDataSource = mahabharataDataSource;
@@ -44,8 +44,8 @@ public class TopMahabharataGodsImpl implements TopMahabharataGods {
     @Override
     public List<God> getTopMahabharataGods() {
 
-        final var mahabharataContent = mahabharataDataSource.getMahabharataBook();
-        final var indianGods = indianGodsService.getGodList();
+        var mahabharataContent = mahabharataDataSource.getMahabharataBook();
+        var indianGods = indianGodsService.getGodList();
 
         return mahabharataContent.thenCombineAsync(indianGods, (mahabharata, maybeGods) -> maybeGods.map(
                 gods -> checkGodsAndCount(gods, mahabharata)
@@ -61,7 +61,7 @@ public class TopMahabharataGodsImpl implements TopMahabharataGods {
 
     }
 
-    private List<CompletableFuture<Optional<God>>> checkGodsAndCount(final List<String> gods, final String mahabharata) {
+    private List<CompletableFuture<Optional<God>>> checkGodsAndCount(List<String> gods, String mahabharata) {
 
         return gods.stream()
                 .map(god -> indianGodService.isValidIndianGod(god)
@@ -70,15 +70,13 @@ public class TopMahabharataGodsImpl implements TopMahabharataGods {
 
     }
 
-    private CompletableFuture<Optional<God>> checkValidAndCount(final String god,
-                                                                final boolean valid,
-                                                                final String mahabharata) {
+    private CompletableFuture<Optional<God>> checkValidAndCount(String god, boolean valid, String mahabharata) {
 
         return valid ? countAppearances(god, mahabharata) : CompletableFuture.completedFuture(Optional.empty());
 
     }
 
-    private CompletableFuture<Optional<God>> countAppearances(final String god, final String mahabharata) {
+    private CompletableFuture<Optional<God>> countAppearances(String god, String mahabharata) {
         return CompletableFuture.supplyAsync(() -> {
             LOG.info("Calculating the appearances for god: {}", god);
             return Optional.of(new God(god, StringUtils.countMatches(mahabharata, god)));

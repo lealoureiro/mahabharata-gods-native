@@ -7,7 +7,7 @@ public class God {
     private final String name;
     private final long hitCount;
 
-    public God(final String name, final long hitCount) {
+    public God(String name, long hitCount) {
         this.name = name;
         this.hitCount = hitCount;
     }
@@ -21,7 +21,7 @@ public class God {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
 
         if (this == o) {
             return true;

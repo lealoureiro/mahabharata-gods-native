@@ -25,9 +25,7 @@ public class MahabharataDataSourceImpl implements MahabharataDataSource {
     private final Executor apiCallExecutor;
     private final String mahabharataDataSourceHostname;
 
-    public MahabharataDataSourceImpl(final RestTemplate restTemplate,
-                                     final Executor apiCallExecutor,
-                                     final String mahabharataDataSourceHostname) {
+    public MahabharataDataSourceImpl(RestTemplate restTemplate, Executor apiCallExecutor, String mahabharataDataSourceHostname) {
         this.restTemplate = restTemplate;
         this.apiCallExecutor = apiCallExecutor;
         this.mahabharataDataSourceHostname = mahabharataDataSourceHostname;
@@ -41,13 +39,13 @@ public class MahabharataDataSourceImpl implements MahabharataDataSource {
 
         return CompletableFuture.supplyAsync(() -> {
 
-            final var uri = getURI(mahabharataDataSourceHostname);
+            var uri = getURI(mahabharataDataSourceHostname);
 
             if (uri.isRight()) {
 
-                final var data = restTemplate.getForObject(uri.get(), String.class);
+                var data = restTemplate.getForObject(uri.get(), String.class);
 
-                final var size = Objects.nonNull(data) ? data.getBytes().length : 0;
+                var size = Objects.nonNull(data) ? data.getBytes().length : 0;
 
                 LOG.info("Loaded Mahabharata Book, size: {} bytes.", size);
 
@@ -70,11 +68,11 @@ public class MahabharataDataSourceImpl implements MahabharataDataSource {
 
     }
 
-    private static Either<String, URI> getURI(final String address) {
+    private static Either<String, URI> getURI(String address) {
 
         try {
 
-            final var baseUrl = "http://" + address + "/stream/TheMahabharataOfKrishna-dwaipayanaVyasa/MahabharataOfVyasa-EnglishTranslationByKMGanguli_djvu.txt";
+            var baseUrl = "http://" + address + "/stream/TheMahabharataOfKrishna-dwaipayanaVyasa/MahabharataOfVyasa-EnglishTranslationByKMGanguli_djvu.txt";
 
             return Either.right(new URI(baseUrl));
 
