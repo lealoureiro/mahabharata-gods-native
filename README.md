@@ -7,19 +7,26 @@ The goal of the project/challenge is to explore **Spring Native** and **Completa
 ## Pre-requisites
 
 - Java 11
-- Docker (Optional)
-- httpie (Optional)
+- Docker (To build a light container with native application)
+  GraalVM SDK (To build native image locally, can be installed with SDKMan)
+- httpie (Optional to API)
 
-## Build
+## Build locally JVM version 
 
 ```bash
 ./mvnw clean install
 ```
 
-## Run
+## Run locally JVM version
 
 ```bash
 ./mvnw spring-boot:run
+```
+
+## Build and run locally native version
+
+```bash
+./mvnw clean -Pnative package
 ```
 
 ## Test 
