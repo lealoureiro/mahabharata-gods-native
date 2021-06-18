@@ -29,6 +29,12 @@ The goal of the project/challenge is to explore **Spring Native** and **Completa
 ./mvnw clean -Pnative package
 ```
 
+## Build and run using docker container
+
+```bash
+mvn spring-boot:build-image
+```
+
 ## Test 
 ```bash
 http :8080/top-gods
