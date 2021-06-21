@@ -116,11 +116,6 @@
                                 <phase>package</phase>
                             </execution>
                         </executions>
-                        <configuration>
-                            <buildArgs>
-                                --enable-url-protocols=http
-                            </buildArgs>
-                        </configuration>
                     </plugin>
                     <!-- Avoid a clash between Spring Boot repackaging and native-maven-plugin -->
                     <plugin>
