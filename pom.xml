@@ -30,6 +30,7 @@
         <wiremock.version>2.27.2</wiremock.version>
         <guava.version>30.1.1-jre</guava.version>
         <spring-native.version>0.10.0</spring-native.version>
+        <native.buildtools.version>0.9.0</native.buildtools.version>
 
     </properties>
 
@@ -60,9 +61,6 @@
                         <builder>paketobuildpacks/builder:tiny</builder>
                         <env>
                             <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                            <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
-                                --enable-url-protocols=http
-                            </BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                         </env>
                         <buildpacks>
                             <buildpack>gcr.io/paketo-buildpacks/java-native-image:5.3.0</buildpack>
@@ -104,7 +102,7 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
-                        <version>0.9.0</version>
+                        <version>${native.buildtools.version}</version>
                         <executions>
                             <execution>
                                 <id>test-native</id>
@@ -121,6 +119,9 @@
                                 <phase>package</phase>
                             </execution>
                         </executions>
+                        <configuration>
+                            <buildArgs>--trace-class-initialization=jdk.xml.internal.SecuritySupport</buildArgs>
+                        </configuration>
                     </plugin>
                     <!-- Avoid a clash between Spring Boot repackaging and native-maven-plugin -->
                     <plugin>
@@ -203,6 +204,12 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>${rest-assured.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>junit-platform-native</artifactId>
+            <version>${native.buildtools.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
