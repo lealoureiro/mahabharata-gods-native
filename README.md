@@ -26,13 +26,14 @@ The goal of the project/challenge is to explore **Spring Native** and **Completa
 ## Build and run locally native version
 
 ```bash
-./mvnw clean -Pnative package
+./mvnw -Pnative -DskipTests package 
 ```
 
 ## Build and run using docker container
 
 ```bash
 mvn spring-boot:build-image
+docker run --rm -p 8080:8080 mahabharata-gods-native:1.0.0-SNAPSHOT
 ```
 
 ## Test 
